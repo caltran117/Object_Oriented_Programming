@@ -2,6 +2,7 @@ const inquirer = require("inquirer")
 const Engineer = require("./lib/Engineer")
 const Intern = require("./lib/Intern")
 const Manager = require("./lib/Manager")
+const fs = require("fs")
 
 let team = []
 
@@ -125,3 +126,45 @@ function domore () {
         }
     })
 }
+
+function finished () {
+    fs.writeFileSync("team.html",`
+    <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Team</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<header>
+    <center>My Team</center>
+</header>
+
+<body>
+    `)
+    for (let i = 0; i < team.length; i++) {
+        fs.appendFileSync("team.html",`
+        <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">${team[i].getRole()}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">${team[i].name}</h6>
+            <p class="card-text">${team[i].id}</p>
+            <a href="mailto:email" class="card-link">${team[i].email}</a>
+            <a href="#" class="card-link">${team[i].special}</a>
+        </div>
+    </div>
+        `)
+    }
+fs.appendFileSync("team.html",`
+</body>
+
+</html>
+`)
+
+}
+
+manager()
+
