@@ -128,7 +128,7 @@ function domore () {
 }
 
 function finished () {
-    fs.writeFileSync("team.html",`
+    fs.writeFileSync("./dist/team.html",`
     <!DOCTYPE html>
 <html lang="en">
 
@@ -144,9 +144,10 @@ function finished () {
 </header>
 
 <body>
+<center>
     `)
     for (let i = 0; i < team.length; i++) {
-        fs.appendFileSync("team.html",`
+        fs.appendFileSync("./dist/team.html",`
         <div class="card" style="width: 18rem;">
         <div class="card-body">
             <h5 class="card-title">${team[i].getRole()}</h5>
@@ -158,7 +159,8 @@ function finished () {
     </div>
         `)
     }
-fs.appendFileSync("team.html",`
+fs.appendFileSync("./dist/team.html",`
+</center>
 </body>
 
 </html>
